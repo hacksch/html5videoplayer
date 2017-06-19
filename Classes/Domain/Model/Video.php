@@ -436,6 +436,10 @@ class Video extends AbstractEntity {
 				'parameter' => $mediaWizard->rewriteUrl($media)
 			));
 		} elseif (GeneralUtility::isValidUrl($media)) {
+            // prevent "data:" and "javascript:" Resources! Whitelist!
+            if (!in_array(parse_url($media, PHP_URL_SCHEME), ['http', 'https'])) {
+                return '';
+            }
 			$returnValue = $media;
 		}
 
@@ -453,7 +457,7 @@ class Video extends AbstractEntity {
 	 * @return string
 	 */
 	public function getYoutube() {
-		return $this->youtube;
+		return $this->retrieveMediaUrl($this->youtube);
 	}
 
 	/**
@@ -467,7 +471,7 @@ class Video extends AbstractEntity {
 	 * @return string
 	 */
 	public function getVimeo() {
-		return $this->vimeo;
+		return $this->retrieveMediaUrl($this->vimeo);
 	}
 
 	/**
