@@ -437,7 +437,7 @@ class Video extends AbstractEntity {
 			));
 		} elseif (GeneralUtility::isValidUrl($media)) {
             // prevent "data:" and "javascript:" Resources! Whitelist!
-            if (!in_array(parse_url($media, PHP_URL_SCHEME), array('http', 'https')) {
+            if (!in_array(parse_url($media, PHP_URL_SCHEME), array('http', 'https'))) {
                 return '';
             }
 			$returnValue = $media;
